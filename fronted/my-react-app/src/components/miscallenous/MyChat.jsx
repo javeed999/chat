@@ -5,7 +5,7 @@ import { BellIcon, ChevronDownIcon ,AddIcon} from '@chakra-ui/icons'
 import ChatLoading from '../ChatLoading'
 import { getSender } from '../config/ChatLogics'
 import GroupChatModel from './GroupChatModel'
-const MyChat = ({fetchAgain}) => {
+const MyChat = ({fetchAgain,setFetchAgain}) => {
   const toast=useToast();
   const[loggedUser,setLoggedUser]=useState() 
    const {chats,setChats,user,selectedChat,setSelectedChat}=ChatState();
@@ -21,6 +21,7 @@ const MyChat = ({fetchAgain}) => {
         throw new Error("Failed To Fetch")
       const data=await response.json();
       setChats(data);
+      
 
     }
     catch(err)

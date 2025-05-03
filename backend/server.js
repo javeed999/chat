@@ -4,7 +4,7 @@ const cors=require("cors")
 const dotEnv=require("dotenv")
 const {chats}=require("./data/data")
 dotEnv.config()
-
+const path=require("path")
 const connectDB=require("./config/db")
 connectDB();
 const userRoutes=require("./routes/userRoutes")
@@ -16,9 +16,7 @@ const {notFound,errorHandler}=require("./middleware/errorMiddleware")
  
 app.use(express.json())
 app.use(cors())
-app.get("/",(req,res)=>{
-    res.send("Api is Running")
-})
+
 
 app.get("/data",(req,res)=>{
     res.send(chats)
@@ -30,6 +28,24 @@ app.get("/data/:id",(req,res)=>{
 })
 
 const PORT=process.env.PORT || 5400
+
+// deployment
+const __dirname1=path.resolve()
+console.log(__dirname1)
+if(process.env.NODE_ENV==="production")
+{
+    app.use(express.static(path.join(__dirname1,"/fronted/my-react-app/dist")))
+    app.get("/",(req,res)=>{
+        res.sendFile(path.resolve(__dirname1,"fronted","my-react-app","dist","index.html"))
+    })
+}
+else{
+    app.get("/",(req,res)=>{
+        res.send("Api is Running")
+    })
+}
+//
+
 
 
 app.use("/api/user",userRoutes)

@@ -29,7 +29,7 @@ const HomePage = () => {
           fontFamily={"Work Sans"} 
           color="black"
         >
-          Talk-A-Tive
+          Talk-Bridge
         </Text>
       </Box>
       <Box  w="100%" p={4} borderRadius={"lg"} borderWidth="1px" color="black">
